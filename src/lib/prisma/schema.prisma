@@ -20,25 +20,14 @@ model User {
   firstName String?
   lastName  String?
   posts     Post[]
-  Comment   Comment[]
 }
 
 model Post {
-  id     String @unique
+  id     String @unique @default(uuid())
   author User   @relation(fields: [userId], references: [id])
   userId String
 
+  title    String
   content  String
   category Category
-  Comment  Comment[]
-}
-
-model Comment {
-  id Int @unique @default(autoincrement())
-
-  post   Post   @relation(fields: [postId], references: [id])
-  postId String
-
-  author User   @relation(fields: [userId], references: [id])
-  userId String
 }

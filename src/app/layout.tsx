@@ -1,6 +1,7 @@
 import "./globals.css"
 import { Manrope } from "next/font/google"
 import type * as React from "react"
+import Navbar from "~/components/Navbar"
 import { Toaster } from "~/components/ui/toaster"
 
 const manrope = Manrope({
@@ -25,6 +26,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				<title>Disaster Relief - disasterrelief.forum</title>
 			</head>
 			<body>
+				<Navbar />
 				{children}
 				<Toaster />
 			</body>

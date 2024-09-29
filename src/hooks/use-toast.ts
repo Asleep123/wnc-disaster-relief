@@ -5,7 +5,7 @@ import * as React from "react"
 
 import type { ToastActionElement, ToastProps } from "~/components/ui/toast"
 
-const TOAST_LIMIT = 1
+const TOAST_LIMIT = 2
 const TOAST_REMOVE_DELAY = 1000000
 
 type ToasterToast = ToastProps & {
@@ -95,9 +95,9 @@ export const reducer = (state: State, action: Action): State => {
 			if (toastId) {
 				addToRemoveQueue(toastId)
 			} else {
-				state.toasts.forEach((toast) => {
+				for (const toast of state.toasts) {
 					addToRemoveQueue(toast.id)
-				})
+				}
 			}
 
 			return {
@@ -132,9 +132,9 @@ let memoryState: State = { toasts: [] }
 
 function dispatch(action: Action) {
 	memoryState = reducer(memoryState, action)
-	listeners.forEach((listener) => {
+	for (const listener of listeners) {
 		listener(memoryState)
-	})
+	}
 }
 
 type Toast = Omit<ToasterToast, "id">
@@ -179,7 +179,7 @@ function useToast() {
 				listeners.splice(index, 1)
 			}
 		}
-	}, [state])
+	}, [])
 
 	return {
 		...state,
